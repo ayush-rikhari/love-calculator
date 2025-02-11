@@ -1,0 +1,47 @@
+function calculateLove() {
+    const name1 = document.getElementById('name1').value.trim().toLowerCase();
+    const name2 = document.getElementById('name2').value.trim().toLowerCase();
+    const resultDiv = document.getElementById('result');
+
+    // Clear previous result and animations
+    resultDiv.classList.remove('show');
+    resultDiv.innerText = '';
+
+    if (name1 === '' || name2 === '') {
+        resultDiv.innerText = '🌟 Please enter both names to calculate love.';
+        resultDiv.classList.add('show');
+        return;
+    }
+
+    // Simple algorithm to calculate love percentage
+    let combinedString = name1 + name2;
+    let total = 0;
+
+    for (let i = 0; i < combinedString.length; i++) {
+        total += combinedString.charCodeAt(i);
+    }
+
+    let lovePercentage = (total % 101); // Ensures a percentage between 0-100
+
+    // Generate a message based on compatibility
+    let message = '';
+
+    if (lovePercentage > 80) {
+        message = 'You are a match made in heaven! 💕';
+    } else if (lovePercentage > 50) {
+        message = 'There is strong potential between you two! 💞';
+    } else if (lovePercentage > 30) {
+        message = 'There could be something there, keep exploring! 💖';
+    } else {
+        message = 'It might be a challenging path, but love always finds a way! 💔';
+    }
+
+    // Display the result with animation
+    resultDiv.innerText = `${capitalize(name1)} ❤️ ${capitalize(name2)} = ${lovePercentage}% compatibility!\n${message}`;
+    resultDiv.classList.add('show');
+}
+
+// Helper function to capitalize names
+function capitalize(name) {
+    return name.charAt(0).toUpperCase() + name.slice(1);
+}
